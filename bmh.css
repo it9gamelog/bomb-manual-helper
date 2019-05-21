@@ -3,6 +3,7 @@ body {
   position: relative;
   height: 100%;
   margin: 0;
+  font-family: sans-serif;
 }
 
 #result {
@@ -41,6 +42,40 @@ body {
   border: 1px solid gold;
   background: #FFFDE7;
   padding: 0 0.5em;
+}
+
+.helpwrapper {
+  display: flex;
+  flex-direction: row;
+  flex-flow: row wrap;
+  align-items: stretch;
+}
+
+.helpbox {
+  border: 1px solid gold;
+  padding: 0.25em;
+  margin: 0.25em;
+  min-width: 10em;
+  max-width: 25em;
+  flex-basis:auto;
+}
+
+.helpbox h2 {
+  font-size: 1.25em;
+  margin: 0.15em 0 0.35em 0;
+  padding: 0;
+}
+
+.helpbox p {
+  margin: 1em 0;
+}
+
+.rainbow {
+  font-style: italic;
+  background: linear-gradient(to bottom, #e45151, #39489e, #c3b14d, black) black;
+  background-repeat: no-repeat;
+  background-position: 50% 0%; 
+  background-size: 100% 70%;
 }
 
 .color {

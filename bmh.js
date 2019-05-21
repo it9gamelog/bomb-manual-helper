@@ -56,7 +56,7 @@ Vue.component('color', {
       return "ERROR";
     }
   },
-  template: `<span :class="'color color-' + color">{{ colorName }}</span>`
+  template: `<span :class="'color color-' + color"><slot>{{ colorName }}</slot></span>`
 });
 
 class SubjectWire {
@@ -162,14 +162,9 @@ class SubjectButton {
       template: `
         <div>
           <h1>Button</h1>
-          <p><color :color="color" /> - {{ text }}</p>
+          <p><color :color="color" /> - {{ text }}
           <p v-if="isClick" class="action">Click and release</p>
-          <p v-if="!isClick" class="action">Hold and if 
-            <ul>
-              <li><color color="B" /> then 4,</li>
-              <li><color color="Y" /> then 5,</li>
-              <li>else 1</li>
-            </ul>
+          <p v-if="!isClick" class="action">Hold: <color color="B">Blue → 4</color>, or <color color="Y">Yellow → 5</color>, or 1</p>
           </p>
         </div>
       `
@@ -269,56 +264,21 @@ class SubjectSimon {
     this.last = null;
   }
   calc(input) {
-    var map = {
-      R: "R",
-      B: "B",
-      G: "G",
-      Y: "Y"
-    };
+    var map = { R: "R", B: "B", G: "G", Y: "Y" };
     if (this.gstate.vowel) {
       if (this.gstate.strike <= 0)
-        map = {
-          R: "B",
-          B: "R",
-          G: "Y",
-          Y: "G"
-        };
+        map = { R: "B", B: "R", G: "Y", Y: "G" };
       if (this.gstate.strike == 1)
-        map = {
-          R: "Y",
-          B: "G",
-          G: "B",
-          Y: "R"
-        };
+        map = { R: "Y", B: "G", G: "B", Y: "R" };
       if (this.gstate.strike >= 2)
-        map = {
-          R: "G",
-          B: "R",
-          G: "Y",
-          Y: "B"
-        };
+        map = { R: "G", B: "R", G: "Y", Y: "B" };
     } else {
       if (this.gstate.strike <= 0)
-        map = {
-          R: "B",
-          B: "Y",
-          G: "G",
-          Y: "R"
-        };
+        map = { R: "B", B: "Y", G: "G", Y: "R" };
       if (this.gstate.strike == 1)
-        map = {
-          R: "R",
-          B: "B",
-          G: "Y",
-          Y: "G"
-        };
+        map = { R: "R", B: "B", G: "Y", Y: "G" };
       if (this.gstate.strike >= 2)
-        map = {
-          R: "Y",
-          B: "G",
-          G: "B",
-          Y: "R"
-        };
+        map = { R: "Y", B: "G", G: "B", Y: "R" };
     }
     return input.map(c => map[c]);
   }
@@ -370,106 +330,45 @@ class SubjectWhoOnFirst {
     var pos = null;
     var n = text;
     switch (text.replace(/[ ']/g, "")) {
-      case "YES":
-        pos = "LM";
-        break;
-      case "FIRST":
-        pos = "RT";
-        break;
-      case "DISPLAY":
-        pos = "RB";
-        break;
-      case "OKAY":
-        pos = "RT";
-        break;
-      case "SAYS":
-        pos = "RB";
-        break;
-      case "NOTHING":
-        pos = "LM";
-        break;
-      case "-":
-        pos = "LB";
-        break;
-      case "BLANK":
-        pos = "RM";
-        break;
-      case "NO":
-        pos = "RB";
-        break;
-      case "LED":
-        pos = "LM";
-        break;
-      case "LEAD":
-        pos = "RB";
-        break;
-      case "READ":
-        pos = "RM";
-        break;
-      case "RED":
-        pos = "RM";
-        break;
-      case "REED":
-        pos = "LB";
-        break;
-      case "LEED":
-        pos = "LB";
-        break;
-      case "HOLDON":
-        n = "HOLD ON";
-        pos = "RB";
-        break;
-      case "YOU":
-        pos = "RM";
-        break;
-      case "YOUARE":
-        n = "YOU ARE";
-        pos = "RB";
-        break;
-      case "YOUR":
-        pos = "RM";
-        break;
-      case "YOURE":
-        n = "YOU'RE";
-        pos = "RM";
-        break;
-      case "UR":
-        pos = "LT";
-        break;
-      case "THERE":
-        pos = "RB";
-        break;
-      case "THEYRE":
-        n = "THEY'RE";
-        pos = "LB";
-        break;
-      case "THEIR":
-        pos = "RM";
-        break;
-      case "THEYARE":
-        n = "THEY ARE";
-        pos = "LM";
-        break;
-      case "SEE":
-        pos = "RB";
-        break;
-      case "C":
-        pos = "RT";
-        break;
-      case "CEE":
-        pos = "RB";
-        break;
+      case "YES": pos = "LM"; break;
+      case "FIRST": pos = "RT"; break;
+      case "DISPLAY": pos = "RB"; break;
+      case "OKAY": pos = "RT"; break;
+      case "SAYS": pos = "RB"; break;
+      case "NOTHING": pos = "LM"; break;
+      case "-": pos = "LB"; break;
+      case "BLANK": pos = "RM"; break;
+      case "NO": pos = "RB"; break;
+      case "LED": pos = "LM"; break;
+      case "LEAD": pos = "RB"; break;
+      case "READ": pos = "RM"; break;
+      case "RED": pos = "RM"; break;
+      case "REED": pos = "LB"; break;
+      case "LEED": pos = "LB"; break;
+      case "HOLDON": n = "HOLD ON"; pos = "RB"; break;
+      case "YOU": pos = "RM"; break;
+      case "YOUARE": n = "YOU ARE"; pos = "RB"; break;
+      case "YOUR": pos = "RM"; break;
+      case "YOURE": n = "YOU'RE"; pos = "RM"; break;
+      case "UR": pos = "LT"; break;
+      case "THERE": pos = "RB"; break;
+      case "THEYRE": n = "THEY'RE"; pos = "LB"; break;
+      case "THEIR": pos = "RM"; break;
+      case "THEYARE": n = "THEY ARE"; pos = "LM"; break;
+      case "SEE": pos = "RB"; break;
+      case "C": pos = "RT"; break;
+      case "CEE": pos = "RB"; break;
     }
-    var arrow = "";
+    var text = "";
     switch (pos) {
-    case "LT": arrow = "↖️"; break;
-    case "LM": arrow = "⬅️"; break;
-    case "LB": arrow = "↙️"; break;
-    case "RT": arrow = "↗️"; break;
-    case "RM": arrow = "➡️"; break;
-    case "RB": arrow = "↘️"; break;
+    case "LT": text = "↖️ Left Top"; break;
+    case "LM": text = "⬅️ Left Middle"; break;
+    case "LB": text = "↙️ Left Bottom"; break;
+    case "RT": text = "↗️ Right Top"; break;
+    case "RM": text = "➡️ Right Middle"; break;
+    case "RB": text = "↘️ Right Bottom"; break;
     }
-    return [pos != null ? (arrow + ' ' + pos) : null, n];
+    return [pos != null ? text : null, n];
   }
   calcPhase2(text) {
     var ans = null;
@@ -597,8 +496,7 @@ class SubjectWhoOnFirst {
         template: `
           <div>
             <h1>Who’s on First (Step 1)</h1>
-            <p>1. For display: <pre>{{ normalized }}</pre></p>
-            <p class="action">Look at: {{ pos }}</p>
+            <p>Display: <pre>{{ normalized }}</pre> <span class="action">{{ pos }}</span></p>
           </div>
         `
       });
@@ -614,8 +512,7 @@ class SubjectWhoOnFirst {
         template: `
           <div>
             <h1>Who’s on First (Step 2)</h1>
-            <p>For button: <pre>{{ normalized }}</pre></p>
-            <p class="action">{{ answer }}</p>
+            <p>Button: <pre>{{ normalized }}</pre> <span class="action">{{ answer }}</span></p>
           </div>
         `
       });
@@ -741,7 +638,7 @@ class SubjectMorse {
   process(cmd) {
     var out, t;
     var m, re;
-    re = /^O([A-Z]*)$/;
+    re = /^O\s+([A-Z]*)$/;
     m = re.exec(cmd);
     if (m) {
       this.last = m[1];
@@ -1016,7 +913,7 @@ class SubjectComplicatedWire {
       template: `
         <div>
           <h1>Complicated Wire</h1>
-          <p><pre v-if="led">💡</pre><color v-if="white" color="W" /><color v-if="red" color="R" /><color v-if="blue" color="B" /><pre v-if="star">⭐</pre>
+          <p><span v-if="led">💡</span><color v-if="white" color="W" /><color v-if="red" color="R" /><color v-if="blue" color="B" /><span v-if="star">⭐</span>
               <span v-if="cut" class="action">✂️ Cut</span>
               <span v-if="!cut" class="action">💚 Keep </span>
           </p>
@@ -1179,9 +1076,7 @@ class SubjectMaze {
     var out;
     if (next[0] == finish[0] && next[1] == finish[1])
       return [];
-    console.log(next, finish);
     var cell = maze[next[0]][next[1]];
-    console.log(cell);
     if (cell[5]) return null;
 
     cell[5] = true;
@@ -1315,18 +1210,19 @@ class SubjectPassword {
       out = new t({});
       this.last = [['*'],['*'],['*'],['*'],['*']];
     } else {
-      var re = /^([1-5])?([A-Z]{6,}|[A-Z]*[*]+[A-Z]*)$/;
+      var re = /^(?:([1-5])([A-Z]+)|([1-5])([*])|([A-Z]{6,}))$/;
       var m = re.exec(cmd);
       if (m === null)
         return false;
-
-      var pos = m[1] != null ? m[1] : this.last.findIndex(c => c.length == 1 && c[0] == '*')+1;
+      var pos = m[1] || m[3];
+      var text = m[2] || m[4] || m[5];
+      if (pos == null) pos = this.last.findIndex(c => c.length == 1 && c[0] == '*')+1;
       if (pos <= 0) pos = 1;
       if (pos > 5) {
         this.last = [['*'],['*'],['*'],['*'],['*']];
         pos = 1;
       }
-      this.last[pos - 1] = m[2].split('').filter((v,i,s) => s.indexOf(v) === i);
+      this.last[pos - 1] = text.split('').filter((v,i,s) => s.indexOf(v) === i);
       this.last[pos - 1].sort();
       ans = this.calc(this.last);
 
@@ -1336,9 +1232,8 @@ class SubjectPassword {
           <div>
             <h1>Password (Step {{step}})</h1>
             <p>Input: <pre v-for="i in input">{{ i }}</pre></p>
-            <p v-if="answer.length > 1" class="action">Possible answers: {{ answer.join(', ') }}</p>
-            <p v-if="answer.length == 1" class="action">Answer: {{ answer.join(', ') }}</p>
-            <p v-if="answer.length == 0" class="action">No answer. <pre>P</pre> to reset, <pre>{{step}}ABCXYZ</pre> to reassign just this position</p>
+            <p v-if="answer.length >= 1" class="action">{{ answer.join(', ') }}</p>
+            <p v-if="answer.length == 0" class="action">No answer. <pre>P</pre> to reset, <pre>{{step}}ABCD</pre> to reassign just this position</p>
           </div>
         `
       });
@@ -1390,7 +1285,7 @@ class SubjectKnob {
     return null;
   }
   process(cmd) {
-    if (!/^[01]{12}$/.test(cmd))
+    if (!/^[01]{12}|[01]{6}$/.test(cmd))
       return false;
 
     var ans = this.calc(cmd);
@@ -1589,26 +1484,15 @@ var vm = new Vue({
     },
     unknown: function() {
       var t = Vue.extend({
-        props: ['wires', 'answer'],
-        template: `<div><h1>Unknown Command</h1>
-            <ul>
-              <li><pre>new</pre> to start a new bomb</li>
-              <li><pre>\\[EVP01234CFO\\]+</pre> to configure the bomb (See black letter above)<br><pre>\\EP</pre> to toggle Even and Parallel Port settings</li>              
-              <li>Wire: <pre>[RYBWK]{3,6}</pre> for wires<br><pre>RWK</pre> for 3 wires of red, white, black.</li>
-              <li>Button: <pre>[RYBW] [A-Z]</pre> for color and text<br><pre>R H</pre> for Red Hold</li>
-              <li>Keypads: <pre>KP</pre> to show Keypads</li>
-              <li>Simon's Say: <pre>S</pre> to reset, <pre>[RBGY]</pre> to add character<br><pre>SB</pre> to force into this mode and adding Blue (to distinguish from the Complicated Wires)</li>
-              <li>Who's on First: just <pre>TYPE_THE_WORD</pre>, space and ' could be skipped. <pre>-</pre> for actual empty display.</li>
-              <li>Memory: <pre>M</pre> to reset, <pre>[1234]{5}</pre> to enter the displayed numbers and numbers printed on the buttons.<br><pre>14312</pre> means displaying 1 with buttos 4,3,1 and 2.<br><pre>314312</pre> the same as above and force it to in Step 3</li>
-              <li>Morse: <pre>O</pre> to reset, <pre>... ---</pre> to enter the code, returns a score (the smaller the better).<br><pre>... -</pre> to enter <pre>ST</pre>, followed by <pre>.</pre> to becomes <pre>STE</pre>.<br>Use <pre>OSTEXX</pre> to force input, useful if defuser knows some mores code.</li>
-              <li>Complicated Wires: <pre>C?[BRW]+[L][S]</pre>, L for Light, S for Star.<br><pre>RL</pre> means Red with Light<br><pre>CB</pre> menas Blue with nothing (The C is to distinguish from the Simon Say)</li>
-              <li>Wire Sequences: <pre>Q</pre> to reset, <pre>[RBK][ABC]\\d*</pre>, color and connected target, optionally followed by a number for count<br><pre>KA</pre> means Black to A<br><pre>KA3</pre> to also force settings the corresponding counter.</li>
-              <li>Mazes: <pre>[1-6][1-6]</pre> to enter one of the anchor coordinateds, then enter in the same format for start/finish<br><pre>2136</pre> for maze with anchors at R2C1, R3C6. Then enter <pre>1214</pre> for solution</li>
-              <li>Passwords: <pre>P</pre> to reset, <pre>[A-Z]{6,}</pre> to enter the passwords.</li>
-              <li>Knobs: <pre>[01]{12}</pre> for solution.<br><pre>001011111101</pre> to get Up</li>
-            </ul>
-          </div>
-        `
+        template: '<div><h1>Command cannot be processed. (? for Help)</h2></div>'
+      });
+      var out = new t();
+      out.$mount();
+      this.gstate.container.appendChild(out.$el);
+    },
+    help: function() {
+      var t = Vue.extend({
+        template: '#help'
       });
       var out = new t();
       out.$mount();
@@ -1627,6 +1511,8 @@ var vm = new Vue({
       }
       if (cmd == 'NEW') {
         this.init();
+      } else if (cmd == '?') {
+        this.help();
       } else if (cmd != '') {
         this.unknown();
       }

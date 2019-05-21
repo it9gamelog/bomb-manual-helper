@@ -8,6 +8,100 @@
   <link rel="stylesheet" type="text/css" href="bmh.css">
 </head>
 <body>
+<script type="text/x-template" id="help">
+<div class="helpwrapper">
+  <div class="helpbox">
+    <h2><pre>\</pre> Setup</h2>
+    <p><pre>\VEP2CF</pre> for S/N with Vowel, S/N ends with Even Number, 2 Batteries, with CAR and FRK lit.</p>
+    <p>See the black character at the top for each settings.<br><pre>\\</pre> to add strike (affects Simon Say). To remove a strike, use the radio button above.</p>
+  </div>
+  <div class="helpbox">
+    <h2><pre class="rainbow">CCC</pre> Wires</h2>
+    <p>Color code of each wires (from top to bottom of course)</p>
+    <p><pre>RRR</pre> for 3 <color color="R" /> wires<br><pre>BYWK</pre>for <color color="B" /><color color="Y" /><color color="W" /><color color="K" /> wires</p>
+  </div>
+  <div class="helpbox">
+    <h2><pre><span class="rainbow">C</span> X</pre> The Button</h2>
+    <p>Color code then the first letter of the label.</p>
+    <p>
+      <pre>B P</pre> for Blue &amp; Press<br>
+      <pre>Y D</pre> for Yellow &amp; Detonate<br>
+      <pre>W A</pre> for White &amp; Abort<br>
+      <pre>W H</pre> for White &amp; Hold
+    </p>
+  </div>
+  <div class="helpbox">
+    <h2><pre>K</pre> Keypads</h2>
+    <p><pre>K</pre> for symbol list</p>
+    <p>Then <pre>A B C D</pre> to resolve</p>
+  </div>
+  <div class="helpbox">
+    <h2><pre>S</pre> Simon Say</h2>
+    <p>
+    <pre><span class="rainbow">C</span></pre> or <pre>S<span class="rainbow">C</span></pre> to enter the new blinking button: <color color="R">R</color><color color="B">B</color><color color="G">G</color><color color="Y">Y</color><br>
+    </p>
+    <p>A prefix <pre>S</pre> to make sure this module receive input. Single <pre>S</pre> to reset this module.</p>
+  </div>
+  <div class="helpbox">
+    <h2><pre>TEXT</pre> Who's on First</h2>
+    <p>Just type what the defuser read.</p><p><pre>-</pre> for the actual empty display.</p>
+  </div>
+  <div class="helpbox">
+    <h2><pre>M</pre> Memory</h2>
+    <p><pre>14321</pre> means displaying 1, with buttons 4, 3, 2 and 1</p>
+    <p>
+    6 digits input <pre>XDLLLL</pre> to force input to step X with D and LLLL.<br>
+    Single <pre>M</pre> to reset this module. (Also auto reset after step 5)
+    </p>
+  </div>
+  <div class="helpbox">
+    <h2><pre>O</pre> Morse Code</h2>
+    <p><pre>.</pre> and <pre>-</pre>, pause is space. Lower score is better.</p>
+    <p>
+      <pre>... -</pre> for ST, then <pre>.- -.-</pre> to becomes STAK.<br>
+      <pre>O STXXK</pre> to force input, useful when defuser has partially decoded it<br>
+      Single <pre>O</pre> to reset this module.</p>
+  </div>
+  <div class="helpbox">
+    <h2><pre>C</pre> Complicated Wires</h2>
+    <p><pre><span class="rainbow">CC</span>LS</pre>, <pre>L</pre> for the light, <pre>S</pre> for the star</p>
+    <p><pre>C<span class="rainbow">CC</span>LS</pre>, a <pre>C</pre> prefix to make sure this module receive input.<br><pre>S</pre> flag must be after the color code.</p>
+  </div>
+  <div class="helpbox">
+    <h2><pre>Q</pre> Wire Sequences</h2>
+    <p><pre><span class="rainbow">C</span>A</pre> for wire to A (or B, or C)</p>
+    <p><pre>KA</pre> for each black wire to A<br><pre>BB</pre> for each blue wire to B</pre><br>
+    <pre>RC12</pre> to force 12th red wire to C.<br>
+    Single <pre>Q</pre> to reset this module.</p>
+  </div>
+  <div class="helpbox">
+    <h2><pre>RC</pre>,<pre>RCRC</pre> Mazes</h2>
+    <p>Input one of the anchors coordinate as <pre>RC</pre> to select maze, then put the white, red coordinate as <pre>RCRC</pre></p>
+    <p><pre>15</pre>, <pre>3126</pre> for anchor at Row 1 Col 5, then route from Row 3, Col 1 to Row 2 Col 6.</p>
+  </div>
+  <div class="helpbox">
+    <h2><pre>P</pre> Passwords</h2>
+    <p>Input all combination of a position in one string</p>
+    <p>
+      <pre>QWERTY</pre> for 1st, then <pre>AOEUSTNH</pre> for 2nd, until resolved<br>
+      <pre>3XYZ</pre> to force XYZ into 3nd position<br>
+      <pre>4*</pre> set 4 as "wildcard"<br>
+      At least 6 characters to prevent clashing with other module, repeat some characters if needed.<br>
+      Single <pre>P</pre> to reset this module.
+    </p>
+  </div>
+  <div class="helpbox">
+    <h2><pre>101010</pre> Knobs</h2>
+    <p>Enter the full 12 digits (top left to top right, then bottom left to bottom right), or just the top or bottom half with fewer light.</p>
+    <p><pre>101010010001</pre> for Down, <pre>010001</pre> also since bottom half has fewer light/more zeros.</p>
+  </div>
+  <div class="helpbox">
+    <h2><pre>new</pre> New</h2>
+    <p>Start a new bomb</p>
+  </div>
+</div>
+</script>
+
   <div id="wrapper">
     <div id="result">
     </div>
