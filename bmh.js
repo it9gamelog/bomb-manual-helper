@@ -488,6 +488,13 @@ class SubjectWhoOnFirst {
         }
       }
     }
+    if (ans != null) {  
+      var anss = ans.split(/, */);
+      if (anss.indexOf(normalized) >= 0) {
+        anss.splice(anss.indexOf(normalized) + 1);
+        ans = anss.join(', ');
+      }
+    }
 
     var out, t;
     if (pos != null) {
