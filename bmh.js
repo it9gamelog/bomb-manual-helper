@@ -1096,10 +1096,10 @@ class SubjectMaze {
     var re = /^([1-6])\s*([1-6])\s*([1-6])\s*([1-6])$/;
     var mInit = reInit.exec(cmd);
     var m = re.exec(cmd);
-    if (!m && !mInit) return false;
+    if (!((m && this.mazeIndex != null) || mInit)) return false;
     var t, out;
 
-    if (this.mazeIndex == null || !m && mInit) {
+    if (mInit) {
       var ai = [parseInt(mInit[1]) - 1, parseInt(mInit[2]) - 1];
       var mazes = SubjectMaze.getMaze();
       var maze;
@@ -1167,7 +1167,6 @@ class SubjectMaze {
 </div>`
       });
       out = new t({ propsData: { maze: maze, answer: anss.join(' / ') } });
-      this.mazeIndex = null;
     }
     out.$mount();
     this.gstate.container.appendChild(out.$el);
