@@ -670,7 +670,7 @@ class SubjectMorse {
         template: `
           <div>
             <h1>Morse (O to reset)</h1>
-            <p><pre>{{cur}}</prev></p>
+            <p><pre>{{cur}}</pre></p>
             <ul v-if="answer.length > 0">
               <li v-for="p in answer">{{ p.key }}: {{ p.distance }} ({{ p.answer }})</li>
             </ul>
@@ -904,9 +904,16 @@ class SubjectComplicatedWire {
     // Must have at least one color
     if (!/[RBW]/.test(text))
       return false;
-    // 3 or more colors is Wire
+
+    // 3 or more colors is standard wire
     if (text.length - text.replace(/[RBW]/g, '').length >= 3)
       return false;
+
+    // Duplicated color is invalid. Could be Blue B for the Wire Sequence
+    for (let c of ['R','B','W']) {
+      if (text.indexOf(c) != text.lastIndexOf(c))
+        return false;
+    }
 
     var led = text.indexOf("L") >= 0;
     var star = text.indexOf("S") >= 0;
