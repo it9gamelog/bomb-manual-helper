@@ -2,4 +2,4 @@
 
 I created this helper for the great game [Keep Talking and Nobody Explode](https://keeptalkinggame.com/), because I am n00b, do not want to recite the manual, and I am a programmer.
 
-Access to [live demo](https://rawcdn.githack.com/it9gamelog/bomb-manual-helper/46d41f1ee5b539919a23aea8b070cb021ecc75a9/index.html)
+Access to [live demo](https://rawcdn.githack.com/it9gamelog/bomb-manual-helper/13d82e629f6fa37e900f1a818ef877d271740670/index.html)
